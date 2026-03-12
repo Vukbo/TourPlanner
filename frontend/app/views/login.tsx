@@ -11,6 +11,7 @@ import {
   Heading,
   Input,
   Link,
+  Separator,
   type JsxElement,
 } from "@chakra-ui/react";
 import type { JSX } from "@emotion/react/jsx-runtime";
@@ -103,7 +104,11 @@ export default function Login({ loaderData }: Route.ComponentProps) {
     <AbsoluteCenter>
       <Container minW="md"maxW="xl">
         <Flex direction="column" gap="5">
+          <Flex justify="space-between">
           <Heading>Login</Heading>
+            <Link href="register" variant="underline"> Register Account</Link>
+
+          </Flex>
           <Alert.Root status="error">
             <Alert.Indicator />
             <Alert.Content>
@@ -144,8 +149,8 @@ export default function Login({ loaderData }: Route.ComponentProps) {
               placeholder="********"
             ></InputField>
           </Flex>
-          <Flex direction="column" gap="2.5">
-            <Link href="register"> No Account? Register Here!</Link>
+          <Flex direction="column" gap="5">
+            <Separator></Separator>
             <Button disabled={!isLoginPossible}>Login</Button>
           </Flex>
         </Flex>

@@ -1,0 +1,62 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{protocol}}://{{host}}:{{port}}/users
+  body: json
+  auth: inherit
+}
+
+headers {
+  : 
+}
+
+body:json {
+  {
+    "username" : "{{mock_user_mail}}",
+    "password" : "{{mock_user_password}}"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: Bozo
+  description: This will register Bozo's user account
+  
+  request: {
+    url: {{protocol}}://{{host}}:{{port}}/user
+    method: POST
+    mode: json
+    headers: {
+      : 
+    }
+  
+    body:json: {
+      {
+        "username" : "bozovuksan@gmail.com",
+        "password" : "AVeryLongPassword_2000"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

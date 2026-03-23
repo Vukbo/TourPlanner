@@ -9,73 +9,15 @@
   "folders": [],
   "routes": [
     {
-      "uuid": "7d907d26-4a76-4d7a-bd1a-f42aa87e1798",
-      "type": "crud",
-      "documentation": "Endpoint performing CRUD operations on a data bucket (automatically creates GET, POST, PUT, DELETE routes)",
-      "method": "",
-      "endpoint": "users",
-      "responses": [
-        {
-          "uuid": "0f28f87d-5856-4780-886b-fd92a1c08c40",
-          "body": "{}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "Perform CRUD operations on the \"Users\" databucket (\"Data\" tab at the top)",
-          "headers": [],
-          "bodyType": "DATABUCKET",
-          "filePath": "",
-          "databucketID": "5stp",
-          "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": true,
-          "crudKey": "id",
-          "callbacks": []
-        },
-        {
-          "uuid": "1cc38dbf-f4e0-4533-8b50-690c25ad138d",
-          "body": "",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "query",
-              "modifier": "id",
-              "value": "1",
-              "invert": false,
-              "operator": "equals"
-            }
-          ],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": false,
-          "crudKey": "id",
-          "callbacks": []
-        }
-      ],
-      "responseMode": null,
-      "streamingMode": null,
-      "streamingInterval": 0
-    },
-    {
       "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13",
       "type": "http",
       "documentation": "User login",
-      "method": "get",
-      "endpoint": "users",
+      "method": "post",
+      "endpoint": "auth/login",
       "responses": [
         {
           "uuid": "9d313307-b06f-4086-8950-a69c0a8d25c9",
-          "body": "{\n  \n}",
+          "body": "{\"id\" : \"1\"}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -86,7 +28,7 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "query",
+              "target": "body",
               "modifier": "id",
               "value": "1",
               "invert": false,
@@ -109,9 +51,9 @@
         },
         {
           "uuid": "ac46024a-7983-4b2b-92dd-0686f16b2bb2",
-          "body": "{}",
+          "body": "{\n  \"error\" : \"Username or password was incorrect!\"\n}",
           "latency": 0,
-          "statusCode": 401,
+          "statusCode": 403,
           "label": "",
           "headers": [],
           "bodyType": "INLINE",
@@ -120,7 +62,7 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "query",
+              "target": "body",
               "modifier": "id",
               "value": "1",
               "invert": true,
@@ -148,10 +90,6 @@
     }
   ],
   "rootChildren": [
-    {
-      "type": "route",
-      "uuid": "7d907d26-4a76-4d7a-bd1a-f42aa87e1798"
-    },
     {
       "type": "route",
       "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13"

@@ -4,18 +4,15 @@ meta {
   seq: 2
 }
 
-get {
-  url: {{protocol}}://{{host}}:{{port}}/users?id={{mock_user_id}}
+post {
+  url: {{protocol}}://{{host}}:{{port}}/{{path}}/login
   body: json
   auth: inherit
 }
 
-params:query {
-  id: {{mock_user_id}}
-}
-
 body:json {
   {
+    "id" : "{{mock_user_id}}",
     "password":"{{mock_user_password}}"
   }
 }

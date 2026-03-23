@@ -1,8 +1,11 @@
 meta {
   name: Authentication
-  seq: 2
 }
 
 auth {
   mode: inherit
+}
+
+vars:pre-request {
+  path: auth
 }

@@ -15,8 +15,8 @@ export interface FormModel {
 
 export type FormActions =
 |   { type: "changeInputState", input: InputModel }
-|   {type: "submit", action: any}
-|   {type: "cancel", action: any}
+|   {type: "submit", action: () => void}
+|   {type: "cancel", action: () => void}
 
 
 export function stateReducer(current: FormModel, action: FormActions): FormModel {
@@ -40,6 +40,7 @@ export function stateReducer(current: FormModel, action: FormActions): FormModel
 
         case "submit":
             current.state = FormStates.Submitted;
+            action.action();
             return {...current};
         case "cancel":
             current.state = FormStates.Canceled;

@@ -26,7 +26,7 @@ export default function Register({ loaderData }: Route.ComponentProps,) {
                     <InputField model={usernameInput} onChange={(m)=> {setUsernameInput(m); formDispatcher({type: "changeInputState", input:m})}}></InputField>
                     <InputField model={passwordInput} onChange={(m)=> {setPasswordInput(m); formDispatcher({type: "changeInputState", input:m})}}></InputField>
                     <Link href="">Go to Login here</Link>
-                    <Button loading onClick={() => console.log("Register clicked")} disabled={!(form.state==FormStates.Valid)}>Register</Button>
+                    <Button onClick={() => console.log("Register clicked")} disabled={!(form.state==FormStates.Valid)}>Register</Button>
                 </Flex>
             </Container>
         </AbsoluteCenter>

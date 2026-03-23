@@ -27,7 +27,7 @@ export default function Register({ loaderData }: Route.ComponentProps,) {
 
     if(error) return 'An error has occurred: ' + error.message
 
-    // if(data) return data.id
+    if(data) return data.id
     
     // return (
     //     <AbsoluteCenter>

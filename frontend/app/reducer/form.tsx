@@ -1,47 +1,49 @@
-export enum InputFieldState {
+import { InputState, type InputModel } from "~/components/input";
+
+export enum FormStates{
     Untouched,
-    Valid,
     Invalid,
+    Valid,
+    Submitted,
+    Canceled
 }
 
-interface State {
-    canSubmit: boolean;
-    inputs: InputField[];
+export interface FormModel {
+    state : FormStates;
+    inputs: InputModel[];
 }
 
-export interface InputField {
-    label: string;
-    required: boolean;
-    state: InputFieldState;
-}
+export type FormActions =
+|   { type: "changeInputState", input: InputModel }
+|   {type: "submit", action: any}
+|   {type: "cancel", action: any}
 
-type Actions =
-    { type: "changeInputState", value: InputField }
 
-// Initial state of the form
-const initialState: State = {
-    canSubmit: false,
-    inputs: [],
-}
-
-export function stateReducer(currentState: State, action: Actions): State {
+export function stateReducer(current: FormModel, action: FormActions): FormModel {
     switch (action.type) {
         case "changeInputState":
-            currentState.inputs.forEach((e) => {
-                if (e.label == action.value.label) {
-                    e.state = action.value.state;
+            current.inputs.forEach((e) => {
+                if (e.id == action.input.id) {
+                    e.state = action.input.state;
                 }
             });
 
-            let requiredInputs = currentState.inputs.filter((e) => e.required);
+            let requiredInputs = current.inputs.filter((e) => e.required);
 
-            currentState.canSubmit = requiredInputs.every((e) => {
-                if (e.state == InputFieldState.Valid)
+            current.state = requiredInputs.every((e) => {
+                if (e.state == InputState.Valid)
                     return true;
                 return false;
-            })
+            }) ? FormStates.Valid : FormStates.Invalid;
 
-            return { ...currentState };
+            return { ...current };
+
+        case "submit":
+            current.state = FormStates.Submitted;
+            return {...current};
+        case "cancel":
+            current.state = FormStates.Canceled;
+            return {...current};
 
         default:
             throw new Error("Unknown action type");

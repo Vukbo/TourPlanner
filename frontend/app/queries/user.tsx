@@ -33,7 +33,8 @@ function BuildRequest(baseURL: APIUrl, path: string, method : string, body? : an
     let request = new Request ( url, {method: method} )
 
     if(body){
-        request = new Request ( url, { ...request, body : jsonBody} )
+        let headers = {"Content-type":"application/json"}
+        request = new Request ( url, { method:method , body : jsonBody, headers: headers} )
     }
 
     if(queryParams){
@@ -54,11 +55,10 @@ function BuildRequest(baseURL: APIUrl, path: string, method : string, body? : an
 
 export async function Login(user: UserLoginDTO){
     const request = BuildRequest(ApiBackend, "auth/login", "POST", user)
-    console.log(request)
     const response = await fetch(
         request
     )
-
+    
     //client errors reagieren
     if(response.status >= 400 && response.status < 500){
         throw new Error ((await response.json() as ClientErrorResponse).error)

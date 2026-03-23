@@ -10,6 +10,8 @@ import {
 import { Provider } from "./components/ui/provider";
 import type { Route } from "./+types/root";
 import "./app.css";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./queries/user";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -48,9 +50,11 @@ export function HydrateFallback() {
 
 export default function App() {
   return (
-    <Provider>
-      <Outlet />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider>
+        <Outlet />
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

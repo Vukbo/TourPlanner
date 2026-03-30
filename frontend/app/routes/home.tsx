@@ -1,6 +1,8 @@
 import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
 import {Button, HStack} from "@chakra-ui/react"
+import Map from "./map";
+
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,8 +14,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
   <HStack>
-    <Button>Click me</Button>
-    <Button>Click me</Button>
+    <Map/>
   </HStack>
   );
 }

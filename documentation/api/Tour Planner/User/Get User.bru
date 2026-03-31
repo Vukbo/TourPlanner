@@ -1,0 +1,20 @@
+meta {
+  name: Get User
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base-url}}/{{path}}/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 99bc6e7d-353f-44d3-9720-6d2b2a58a714
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

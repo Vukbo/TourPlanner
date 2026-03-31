@@ -17,7 +17,7 @@
       "responses": [
         {
           "uuid": "9d313307-b06f-4086-8950-a69c0a8d25c9",
-          "body": "{\"id\" : \"1\"}",
+          "body": "{\n  \"token\": \"{{faker 'internet.jwt'}}\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -28,16 +28,16 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "body",
-              "modifier": "id",
-              "value": "1",
+              "target": "data_bucket",
+              "modifier": "username",
+              "value": "username",
               "invert": false,
               "operator": "equals"
             },
             {
-              "target": "body",
+              "target": "data_bucket",
               "modifier": "password",
-              "value": "AVeryLongPassword_2000",
+              "value": "password",
               "invert": false,
               "operator": "equals"
             }
@@ -46,40 +46,6 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
-          "crudKey": "id",
-          "callbacks": []
-        },
-        {
-          "uuid": "ac46024a-7983-4b2b-92dd-0686f16b2bb2",
-          "body": "{\n  \"error\" : \"Username or password was incorrect!\"\n}",
-          "latency": 0,
-          "statusCode": 403,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "id",
-              "value": "1",
-              "invert": true,
-              "operator": "equals"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "AVeryLongPassword_2000",
-              "invert": true,
-              "operator": "equals"
-            }
-          ],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": false,
           "crudKey": "id",
           "callbacks": []
         }
@@ -167,6 +133,130 @@
       "responseMode": null,
       "streamingMode": null,
       "streamingInterval": 0
+    },
+    {
+      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d",
+      "type": "http",
+      "documentation": "Sends route mock data",
+      "method": "get",
+      "endpoint": "route",
+      "responses": [
+        {
+          "uuid": "7de13b94-c17f-40b1-bff0-6550c2d50550",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "FILE",
+          "filePath": "C:\\Users\\Vukbo\\Downloads\\ors__v2_directions_{profile}_get_1774958813180.geojson",
+          "databucketID": "",
+          "sendFileAsBody": true,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67",
+      "type": "crud",
+      "documentation": "Tour managment",
+      "method": "",
+      "endpoint": "tours",
+      "responses": [
+        {
+          "uuid": "fd80a89a-2dd4-4f85-893a-b7cfb5281243",
+          "body": "{}",
+          "latency": 25,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "p2l2",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "author",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af",
+      "type": "crud",
+      "documentation": "User managment",
+      "method": "",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "0db11841-8f87-41c0-98a5-98c7964e094f",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "5stp",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "logs",
+      "responses": [
+        {
+          "uuid": "34944de2-d64c-4d68-925f-75a2f6f77bb1",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "io4q",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
   ],
   "rootChildren": [
@@ -177,6 +267,22 @@
     {
       "type": "route",
       "uuid": "ad73ed8b-bcc4-4fb0-8932-fb121b35e848"
+    },
+    {
+      "type": "route",
+      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d"
+    },
+    {
+      "type": "route",
+      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67"
+    },
+    {
+      "type": "route",
+      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1"
+    },
+    {
+      "type": "route",
+      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af"
     }
   ],
   "proxyMode": false,
@@ -228,7 +334,21 @@
       "id": "5stp",
       "name": "Users",
       "documentation": "",
-      "value": "[\n  {\n    \"id\":1,\n    \"username\":\"bozovuksan@gmail.com\",\n    \"password\":\"AVeryLongPassword_2000\"\n  },\n  {{#repeat 50}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"username\": \"{{faker 'internet.userName'}}\"\n  }\n  {{/repeat}}\n]"
+      "value": "[\n  {{#repeat 10}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"username\": \"{{faker 'internet.email'}}\",\n    \"password\": \"{{faker 'internet.password'}}\"\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "343eb79b-7668-4488-a5d6-753666b16ff8",
+      "id": "p2l2",
+      "name": "Tours",
+      "documentation": "List of all available tours",
+      "value": "[\n  {{#repeat 100}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw '5stp')) 'id' }}\",\n    \"title\":\"{{faker 'word.noun' 5}}\",\n    \"description\": \"{{faker 'lorem.paragraph'}}\",\n    \"from\": [{{faker 'location.nearbyGPSCoordinate' '{origin:[48.20849, 16.37208], isMetric:true, radius:5}'}}],\n    \"to\": [{{faker 'location.nearbyGPSCoordinate' '{origin:[48.20849, 16.37208], isMetric:true, radius:5}'}}],\n    \"transport-type\": {{faker 'number.int' min=0 max=2}},\n    \"tour-distance\": {{faker 'number.float' min=1 max=10 }},\n    \"tour-duration\": {{faker 'number.float' min=0.5 max=4}}\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "732fece8-18e0-4c46-8ba6-4999f3601dd5",
+      "id": "io4q",
+      "name": "Tour Logs",
+      "documentation": "",
+      "value": "[\n    {{#repeat 200}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"tour\":\"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"date-of-creation\": \"{{faker 'date.past' years=2}}\",\n    \"comment\": \"{{faker 'lorem.paragraph'}}\",\n    \"difficulty\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=0.5 max=10}},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}},\n    \"rating\": {{faker 'number.int' min=1 max=5}}\n  }\n  {{/repeat}}\n]"
     }
   ],
   "callbacks": []

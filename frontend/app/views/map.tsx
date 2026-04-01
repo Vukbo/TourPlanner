@@ -3,6 +3,7 @@ import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet"
 import "leaflet/dist/leaflet.css";
 import { useQuery } from "@tanstack/react-query";
 import type { LatLngBoundsExpression, LatLngExpression, PathOptions } from "leaflet";
+import { TourService } from "~/queries/rest";
 
 interface RoutePoint {
     visible: boolean
@@ -77,7 +78,7 @@ function RenderMarkers(points: LatLngExpression[]) {
     // return data.features[0].geometry.coordinates;
 
     return (
-        <MapContainer  doubleClickZoom={false} attributionControl={false} zoomControl={false}  bounds={GetBounds(data.bbox)} style={{ width: "100%", height: "100vh" }} scrollWheelZoom={true}>
+        <MapContainer  doubleClickZoom={false} attributionControl={false} zoomControl={false}  bounds={GetBounds(data.bbox)} style={{ borderRadius:"5px", width: "100%", height: "100%" }} scrollWheelZoom={false}>
 
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -9,132 +9,6 @@
   "folders": [],
   "routes": [
     {
-      "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13",
-      "type": "http",
-      "documentation": "User login",
-      "method": "post",
-      "endpoint": "auth/login",
-      "responses": [
-        {
-          "uuid": "9d313307-b06f-4086-8950-a69c0a8d25c9",
-          "body": "{\n  \"token\": \"{{faker 'internet.jwt'}}\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "data_bucket",
-              "modifier": "username",
-              "value": "username",
-              "invert": false,
-              "operator": "equals"
-            },
-            {
-              "target": "data_bucket",
-              "modifier": "password",
-              "value": "password",
-              "invert": false,
-              "operator": "equals"
-            }
-          ],
-          "rulesOperator": "AND",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": true,
-          "crudKey": "id",
-          "callbacks": []
-        }
-      ],
-      "responseMode": null,
-      "streamingMode": null,
-      "streamingInterval": 0
-    },
-    {
-      "uuid": "ad73ed8b-bcc4-4fb0-8932-fb121b35e848",
-      "type": "http",
-      "documentation": "",
-      "method": "post",
-      "endpoint": "auth/register",
-      "responses": [
-        {
-          "uuid": "cc2ee4e0-b3ef-4dab-a776-d98fedeb1d15",
-          "body": "{\n  \"id\" : \"1\"\n}",
-          "latency": 0,
-          "statusCode": 200,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "username",
-              "value": "",
-              "invert": true,
-              "operator": "null"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "",
-              "invert": true,
-              "operator": "null"
-            }
-          ],
-          "rulesOperator": "AND",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": true,
-          "crudKey": "id",
-          "callbacks": []
-        },
-        {
-          "uuid": "1ae31c59-a217-411e-aa66-35656a3306aa",
-          "body": "{\n  \"error\" : \"Username already exist\"\n}",
-          "latency": 0,
-          "statusCode": 400,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "username",
-              "value": "",
-              "invert": false,
-              "operator": "null"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "",
-              "invert": false,
-              "operator": "null"
-            }
-          ],
-          "rulesOperator": "OR",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": false,
-          "crudKey": "id",
-          "callbacks": []
-        }
-      ],
-      "responseMode": null,
-      "streamingMode": null,
-      "streamingInterval": 0
-    },
-    {
       "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d",
       "type": "http",
       "documentation": "Sends route mock data",
@@ -257,17 +131,74 @@
       "responseMode": null,
       "streamingMode": null,
       "streamingInterval": 0
+    },
+    {
+      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a",
+      "type": "http",
+      "documentation": "User login",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "9c14edd2-2a55-4d37-85c7-0cb97f7be96f",
+          "body": "{\n  \"token\":\"{{faker 'internet.jwt' }}\",\n  \"type\":\"JWT\",\n  \"lifetime\":3600\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "On Correct Credentials",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "data_bucket",
+              "modifier": "$.Users.*.username",
+              "value": "{{body 'username'}}",
+              "invert": false,
+              "operator": "array_includes"
+            },
+            {
+              "target": "data_bucket",
+              "modifier": "$.Users.*.password",
+              "value": "{{body 'password'}}",
+              "invert": false,
+              "operator": "array_includes"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ea06a8a9-52c5-4feb-9d63-456ed0bb225d",
+          "body": "{\n  \"error\":\"Incorrect Username or Password!\",\n  \"info\":[\n    \"Username must be in e-mail format.\", \"Password needs to be at least 6 characters long.\"\n    ]\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "On Incorrect Credentials",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
     }
   ],
   "rootChildren": [
-    {
-      "type": "route",
-      "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13"
-    },
-    {
-      "type": "route",
-      "uuid": "ad73ed8b-bcc4-4fb0-8932-fb121b35e848"
-    },
     {
       "type": "route",
       "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d"
@@ -283,6 +214,10 @@
     {
       "type": "route",
       "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af"
+    },
+    {
+      "type": "route",
+      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a"
     }
   ],
   "proxyMode": false,
@@ -349,6 +284,13 @@
       "name": "Tour Logs",
       "documentation": "",
       "value": "[\n    {{#repeat 200}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"tour\":\"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"date-of-creation\": \"{{faker 'date.past' years=2}}\",\n    \"comment\": \"{{faker 'lorem.paragraph'}}\",\n    \"difficulty\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=0.5 max=10}},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}},\n    \"rating\": {{faker 'number.int' min=1 max=5}}\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "3c042b2c-c374-4644-8b42-a42daaa438b2",
+      "id": "y4qm",
+      "name": "user-schema",
+      "documentation": "JSON schema ",
+      "value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"username\": {\n      \"type\": \"string\"\n    },\n    \"password\": {\n      \"type\": \"string\",\n      \"minLength\": 6\n    }\n  },\n  \"required\": [\"username\", \"password\"]\n}"
     }
   ],
   "callbacks": []

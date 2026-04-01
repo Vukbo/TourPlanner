@@ -1,43 +1,93 @@
-import React, { useRef } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import React, { useRef, useState, type JSX } from "react";
+import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import type { Bounds, LatLngBoundsExpression } from "leaflet";
+import { LatLngBoundsExpression, type LatLngExpression, type PathOptions } from "leaflet";
+import { RouteService, TourService } from "~/queries/rest";
+import { useQuery } from "@tanstack/react-query";
 
+interface RoutePoint {
+    visible: boolean
+    position: LatLngExpression
+}
 
+interface Route {
 
-// export default function Map() {
-//     return (
-//         <div>
-//             <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css"/>
-//             <script src = "node_modules/leaflet/dist/leaflet.js"> </script>
-//             <div id="map" style= {{height : "250pxπ"}} ></div>
-//         </div>
-//     )
-// }
-
+}
 
 export default function Map() {
-    const mapRef = useRef(null);
-    const latitude = 51.505;
-    const longitude = -0.09;
+    const [zoom, setZoom] = useState(5);
+    const [center, setCenter] = useState<LatLngExpression>([47.8864, 16.3799]);
 
-    const outerBounds = [
-        [50.505, -29.09],
-        [52.505, 29.09],
-    ]
+    const [pointA, setPointA] = useState<RoutePoint>({ visible: true, position: [48.16694, 16.26157] });
+    const [pointB, setPointB] = useState<RoutePoint>({ visible: true, position: [48.1481409, 16.2051556] });
+    // const [bounds, setBounds] = useState<LatLngBoundsExpression>();
+
+    const { isPending, error, data } = useQuery(
+        {
+            queryKey: ['routeData'],
+            queryFn: () => TourService.get("/route").then((response) => response.data)
+        }
+    )
+
+    const lineOptions : PathOptions = {color: 'red'}
+
+    // function RenderMarkers(points: RoutePoint[]) {
+    //     let markers = points.map((point) => {
+    //         return (
+    //             <Marker position={point.position}>
+    //                 <Popup>
+    //                     A pretty CSS3 popup. <br /> Easily customizable.
+    //                 </Popup>
+    //             </Marker>
+    //         )
+    //     })
+
+    //     return markers
+    // }
+
+function RenderMarkers(points: LatLngExpression[]) {
+        let markers = points.map((point) => {
+            return (
+                <Marker position={point}>
+                    
+                </Marker>
+            )
+        })
+
+        return markers
+    }
+
+    function GetBounds(bbox:number[])
+    {
+        let bounds: LatLngBoundsExpression = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]]
+        return bounds;
+    }
+
+    function GetPath(points:any[])
+    {
+        return points.map((point) => point as LatLngExpression)   
+    }
+
+
+
+    if (isPending) return "Fetching Data From Server...."
+
+    if (error) return "An erro has occured: " + error.message
+
+    console.log(data);
+    // return data.features[0].geometry.coordinates;
 
     return (
-        // Make sure you set the height and width of the map container otherwise the map won't show
-        <MapContainer bounds={outerBounds as LatLngBoundsExpression} zoom={13} scrollWheelZoom={false}>
+        <MapContainer  doubleClickZoom={false} attributionControl={false} zoomControl={false}  bounds={GetBounds(data.bbox)} style={{ width: "100%", height: "100vh" }} scrollWheelZoom={true}>
+
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[51.505, -0.09]}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker>
+            <Polyline pathOptions={lineOptions} positions={GetPath(data.features[0].geometry.coordinates)}/>
+            {RenderMarkers([data.features[0].geometry.coordinates[0], data.features[0].geometry.coordinates[(data.features[0].geometry.coordinates as []).length-1]])}
+            
         </MapContainer>
     );
 }
+

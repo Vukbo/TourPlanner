@@ -7,11 +7,11 @@ import { useReducer } from "react";
 import InputField, { InputState, type InputModel } from "~/components/input.js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Login } from "~/queries/user.js";
-import type { RegisterModel, UserModel } from "~/models/user.js";
+import type { RegisterModel, User } from "~/models/user.js";
 import { Navigate, redirect, useNavigate, type Register } from "react-router";
 import axios from "axios";
 import { Alert } from "@chakra-ui/react"
-import { handler } from "~/queries/rest.js";
+import { TourService } from "~/queries/rest.js";
 
 // TODO: move to separate file 
 
@@ -39,7 +39,7 @@ export default function Register({ loaderData }: Route.ComponentProps,) {
     const mutation = useMutation({
         mutationFn: async (user: RegisterModel) => {
             try {
-                let response = await handler.post("/auth/register", user);
+                let response = await TourService.post("/auth/register", user);
                 return response;
             }
             catch (error) {

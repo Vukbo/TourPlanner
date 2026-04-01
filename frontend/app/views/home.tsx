@@ -1,7 +1,7 @@
-import type { Route } from "./+types/home";
 import { Welcome } from "../welcome/welcome";
 import {Button, HStack} from "@chakra-ui/react"
-import Map from "./map";
+import type { Route } from "../+types/root";
+import Map from "~/views/map";
 
 
 export function meta({}: Route.MetaArgs) {

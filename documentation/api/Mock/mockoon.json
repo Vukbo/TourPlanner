@@ -3,83 +3,34 @@
   "lastMigration": 33,
   "name": "Tour Planner API (copy)",
   "endpointPrefix": "",
-  "latency": 0,
+  "latency": 50,
   "port": 2406,
   "hostname": "localhost",
   "folders": [],
   "routes": [
     {
-      "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13",
+      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d",
       "type": "http",
-      "documentation": "User login",
-      "method": "post",
-      "endpoint": "auth/login",
+      "documentation": "Sends route mock data",
+      "method": "get",
+      "endpoint": "route",
       "responses": [
         {
-          "uuid": "9d313307-b06f-4086-8950-a69c0a8d25c9",
-          "body": "{\"id\" : \"1\"}",
+          "uuid": "7de13b94-c17f-40b1-bff0-6550c2d50550",
+          "body": "{}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
+          "bodyType": "FILE",
+          "filePath": "C:\\Users\\Vukbo\\Downloads\\ors__v2_directions_{profile}_get_1774958813180.geojson",
           "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "id",
-              "value": "1",
-              "invert": false,
-              "operator": "equals"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "AVeryLongPassword_2000",
-              "invert": false,
-              "operator": "equals"
-            }
-          ],
-          "rulesOperator": "AND",
-          "disableTemplating": false,
-          "fallbackTo404": false,
-          "default": true,
-          "crudKey": "id",
-          "callbacks": []
-        },
-        {
-          "uuid": "ac46024a-7983-4b2b-92dd-0686f16b2bb2",
-          "body": "{\n  \"error\" : \"Username or password was incorrect!\"\n}",
-          "latency": 0,
-          "statusCode": 403,
-          "label": "",
-          "headers": [],
-          "bodyType": "INLINE",
-          "filePath": "",
-          "databucketID": "",
-          "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "id",
-              "value": "1",
-              "invert": true,
-              "operator": "equals"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "AVeryLongPassword_2000",
-              "invert": true,
-              "operator": "equals"
-            }
-          ],
+          "sendFileAsBody": true,
+          "rules": [],
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
-          "default": false,
+          "default": true,
           "crudKey": "id",
           "callbacks": []
         }
@@ -89,52 +40,111 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "ad73ed8b-bcc4-4fb0-8932-fb121b35e848",
-      "type": "http",
-      "documentation": "",
-      "method": "post",
-      "endpoint": "auth/register",
+      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67",
+      "type": "crud",
+      "documentation": "Tour managment",
+      "method": "",
+      "endpoint": "tours",
       "responses": [
         {
-          "uuid": "cc2ee4e0-b3ef-4dab-a776-d98fedeb1d15",
-          "body": "{\n  \"id\" : \"1\"\n}",
+          "uuid": "fd80a89a-2dd4-4f85-893a-b7cfb5281243",
+          "body": "{}",
+          "latency": 25,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "p2l2",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "author",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af",
+      "type": "crud",
+      "documentation": "User managment",
+      "method": "",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "0db11841-8f87-41c0-98a5-98c7964e094f",
+          "body": "{}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
           "headers": [],
-          "bodyType": "INLINE",
+          "bodyType": "DATABUCKET",
           "filePath": "",
-          "databucketID": "",
+          "databucketID": "5stp",
           "sendFileAsBody": false,
-          "rules": [
-            {
-              "target": "body",
-              "modifier": "username",
-              "value": "",
-              "invert": true,
-              "operator": "null"
-            },
-            {
-              "target": "body",
-              "modifier": "password",
-              "value": "",
-              "invert": true,
-              "operator": "null"
-            }
-          ],
-          "rulesOperator": "AND",
+          "rules": [],
+          "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true,
           "crudKey": "id",
           "callbacks": []
-        },
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1",
+      "type": "crud",
+      "documentation": "",
+      "method": "",
+      "endpoint": "logs",
+      "responses": [
         {
-          "uuid": "1ae31c59-a217-411e-aa66-35656a3306aa",
-          "body": "{\n  \"error\" : \"Username already exist\"\n}",
+          "uuid": "34944de2-d64c-4d68-925f-75a2f6f77bb1",
+          "body": "{}",
           "latency": 0,
-          "statusCode": 400,
+          "statusCode": 200,
           "label": "",
+          "headers": [],
+          "bodyType": "DATABUCKET",
+          "filePath": "",
+          "databucketID": "io4q",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a",
+      "type": "http",
+      "documentation": "User login",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "9c14edd2-2a55-4d37-85c7-0cb97f7be96f",
+          "body": "{\n  \"token\":\"{{faker 'internet.jwt' }}\",\n  \"type\":\"JWT\",\n  \"lifetime\":3600\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "On Correct Credentials",
           "headers": [],
           "bodyType": "INLINE",
           "filePath": "",
@@ -142,24 +152,43 @@
           "sendFileAsBody": false,
           "rules": [
             {
-              "target": "body",
-              "modifier": "username",
-              "value": "",
+              "target": "data_bucket",
+              "modifier": "$.Users.*.username",
+              "value": "{{body 'username'}}",
               "invert": false,
-              "operator": "null"
+              "operator": "array_includes"
             },
             {
-              "target": "body",
-              "modifier": "password",
-              "value": "",
+              "target": "data_bucket",
+              "modifier": "$.Users.*.password",
+              "value": "{{body 'password'}}",
               "invert": false,
-              "operator": "null"
+              "operator": "array_includes"
             }
           ],
-          "rulesOperator": "OR",
+          "rulesOperator": "AND",
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ea06a8a9-52c5-4feb-9d63-456ed0bb225d",
+          "body": "{\n  \"error\":\"Incorrect Username or Password!\",\n  \"info\":[\n    \"Username must be in e-mail format.\", \"Password needs to be at least 6 characters long.\"\n    ]\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "On Incorrect Credentials",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
           "crudKey": "id",
           "callbacks": []
         }
@@ -172,11 +201,23 @@
   "rootChildren": [
     {
       "type": "route",
-      "uuid": "afc21fda-6f82-4d6a-91c9-885523288d13"
+      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d"
     },
     {
       "type": "route",
-      "uuid": "ad73ed8b-bcc4-4fb0-8932-fb121b35e848"
+      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67"
+    },
+    {
+      "type": "route",
+      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1"
+    },
+    {
+      "type": "route",
+      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af"
+    },
+    {
+      "type": "route",
+      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a"
     }
   ],
   "proxyMode": false,
@@ -228,7 +269,28 @@
       "id": "5stp",
       "name": "Users",
       "documentation": "",
-      "value": "[\n  {\n    \"id\":1,\n    \"username\":\"bozovuksan@gmail.com\",\n    \"password\":\"AVeryLongPassword_2000\"\n  },\n  {{#repeat 50}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"username\": \"{{faker 'internet.userName'}}\"\n  }\n  {{/repeat}}\n]"
+      "value": "[\n  {{#repeat 10}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"username\": \"{{faker 'internet.email'}}\",\n    \"password\": \"{{faker 'internet.password'}}\"\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "343eb79b-7668-4488-a5d6-753666b16ff8",
+      "id": "p2l2",
+      "name": "Tours",
+      "documentation": "List of all available tours",
+      "value": "[\n  {{#repeat 100}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw '5stp')) 'id' }}\",\n    \"title\":\"{{faker 'word.noun'}} {{faker 'word.noun'}}\",\n    \"description\": \"{{faker 'lorem.paragraph'}}\",\n    \"from\": \"{{faker 'location.streetAddress' false}}\",\n    \"to\": \"{{faker 'location.streetAddress' false}}\",\n    \"transportType\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=1 max=10 }},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}}\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "732fece8-18e0-4c46-8ba6-4999f3601dd5",
+      "id": "io4q",
+      "name": "Tour Logs",
+      "documentation": "",
+      "value": "[\n    {{#repeat 200}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"tour\":\"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"date-of-creation\": \"{{faker 'date.past' years=2}}\",\n    \"comment\": \"{{faker 'lorem.paragraph'}}\",\n    \"difficulty\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=0.5 max=10}},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}},\n    \"rating\": {{faker 'number.int' min=1 max=5}}\n  }\n  {{/repeat}}\n]"
+    },
+    {
+      "uuid": "3c042b2c-c374-4644-8b42-a42daaa438b2",
+      "id": "y4qm",
+      "name": "user-schema",
+      "documentation": "JSON schema ",
+      "value": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"username\": {\n      \"type\": \"string\"\n    },\n    \"password\": {\n      \"type\": \"string\",\n      \"minLength\": 6\n    }\n  },\n  \"required\": [\"username\", \"password\"]\n}"
     }
   ],
   "callbacks": []

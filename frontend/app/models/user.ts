@@ -1,8 +1,7 @@
-export interface UserModel{
-    id: string,
+export interface User{
+    id?: string,
     username : string,
     password : string,
-    tours? : string[],
 }
 
 export interface RegisterModel{

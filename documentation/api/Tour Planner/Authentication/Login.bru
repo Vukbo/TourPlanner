@@ -1,0 +1,57 @@
+meta {
+  name: Login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{protocol}}://{{host}}:{{port}}/{{path}}/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "Marwin54@gmail.com",
+    "password": "y5Wm3VozKbsBGGW"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: Bozo
+  description: Login into Bozo's user account
+  
+  request: {
+    url: {{protocol}}://{{host}}:{{port}}/user?id=1
+    method: GET
+    mode: json
+    params:query: {
+      id: 1
+    }
+  
+    body:json: {
+      {
+        "password":"AVeryLongPassword_2000"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}

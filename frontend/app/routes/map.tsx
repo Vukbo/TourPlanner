@@ -1,9 +1,8 @@
 import React, { useRef, useState, type JSX } from "react";
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { LatLngBoundsExpression, type LatLngExpression, type PathOptions } from "leaflet";
-import { RouteService, TourService } from "~/queries/rest";
 import { useQuery } from "@tanstack/react-query";
+import type { LatLngBoundsExpression, LatLngExpression, PathOptions } from "leaflet";
 
 interface RoutePoint {
     visible: boolean

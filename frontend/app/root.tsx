@@ -12,6 +12,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./queries/user";
+import { Flex } from "@chakra-ui/react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,16 +46,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export function HydrateFallback() {
-  return  <h1>Loading...</h1>;
+  return <h1>Loading...</h1>;
 }
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Provider>
-        <Outlet />
-      </Provider>
-    </QueryClientProvider>
+    <Provider>
+      <Flex p="5" height="100vh">
+        <QueryClientProvider client={queryClient}>
+          <Outlet />
+        </QueryClientProvider>
+      </Flex>
+    </Provider>
   );
 }
 

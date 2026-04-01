@@ -341,7 +341,7 @@
       "id": "p2l2",
       "name": "Tours",
       "documentation": "List of all available tours",
-      "value": "[\n  {{#repeat 100}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw '5stp')) 'id' }}\",\n    \"title\":\"{{faker 'word.noun' 5}}\",\n    \"description\": \"{{faker 'lorem.paragraph'}}\",\n    \"from\": [{{faker 'location.nearbyGPSCoordinate' '{origin:[48.20849, 16.37208], isMetric:true, radius:5}'}}],\n    \"to\": [{{faker 'location.nearbyGPSCoordinate' '{origin:[48.20849, 16.37208], isMetric:true, radius:5}'}}],\n    \"transport-type\": {{faker 'number.int' min=0 max=2}},\n    \"tour-distance\": {{faker 'number.float' min=1 max=10 }},\n    \"tour-duration\": {{faker 'number.float' min=0.5 max=4}}\n  }\n  {{/repeat}}\n]"
+      "value": "[\n  {{#repeat 100}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw '5stp')) 'id' }}\",\n    \"title\":\"{{faker 'word.noun'}} {{faker 'word.noun'}}\",\n    \"description\": \"{{faker 'lorem.paragraph'}}\",\n    \"from\": \"{{faker 'location.streetAddress' false}}\",\n    \"to\": \"{{faker 'location.streetAddress' false}}\",\n    \"transportType\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=1 max=10 }},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}}\n  }\n  {{/repeat}}\n]"
     },
     {
       "uuid": "732fece8-18e0-4c46-8ba6-4999f3601dd5",

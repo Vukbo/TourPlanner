@@ -40,59 +40,59 @@ export function TourListEntry({ tour }: { tour: Tour }) {
 }
 
 export default function Tours() {
-    const {isPending, data, error} = useQuery({
+    const { isPending, data, error } = useQuery({
         queryKey: ['tours'],
-        queryFn: () =>            TourService.get<Tour[]>("/tours").then(res => res.data)
-        
+        queryFn: () => TourService.get<Tour[]>("/tours").then(res => res.data)
+
     })
 
     // if (query.error) return "Error occured: " + error.message
-    if (isPending) return 
+    if (isPending) return
 
     return (
-        <Box>
+        <Stack direction="row" flexGrow={1} gap={5}>
+
+            <Stack gap="5" minW="md">
+                <Heading textAlign={"center"}>Tours</Heading>
+                <Separator />
+                <ScrollArea.Root size="xs" minHeight={"10lh"} >
+                    <ScrollArea.Viewport css={{
+                        "--scroll-shadow-size": "4rem",
+                        maskImage: "linear-gradient(#000, #000)",
+                        "&[data-overflow-y]": {
+                            maskImage:
+                                "linear-gradient(#000,#000,transparent 0,#000 var(--scroll-shadow-size),#000 calc(100% - var(--scroll-shadow-size)),transparent)",
+                            "&[data-at-top]": {
+                                maskImage:
+                                    "linear-gradient(180deg,#000 calc(100% - var(--scroll-shadow-size)),transparent)",
+                            },
+                            "&[data-at-bottom]": {
+                                maskImage:
+                                    "linear-gradient(0deg,#000 calc(100% - var(--scroll-shadow-size)),transparent)",
+                            },
+                        },
+                    }}>
+                        <ScrollArea.Content pr="3">
+
+                            <Stack>
+                                {data.map((tour) => { return <TourListEntry tour={tour}></TourListEntry> })}
+                            </Stack>
+
+                        </ScrollArea.Content>
+                    </ScrollArea.Viewport>
+                    <ScrollArea.Scrollbar >
+                        <ScrollArea.Thumb />
+                    </ScrollArea.Scrollbar>
+                    <ScrollArea.Corner />
+                </ScrollArea.Root>
+                <Button onClick={() => { navigation.navigate("/tour-management") }} >
+                    Create Tour
+                </Button>
+
+            </Stack>
             <Map>
             </Map>
-<Stack gap="5" minW="md">
-            <Heading textAlign={"center"}>Tours</Heading>
-            <Separator />
-            <ScrollArea.Root size="xs" minHeight={"10lh"} maxHeight={"25lh"}>
-                <ScrollArea.Viewport css={{
-                    "--scroll-shadow-size": "4rem",
-                    maskImage: "linear-gradient(#000, #000)",
-                    "&[data-overflow-y]": {
-                        maskImage:
-                            "linear-gradient(#000,#000,transparent 0,#000 var(--scroll-shadow-size),#000 calc(100% - var(--scroll-shadow-size)),transparent)",
-                        "&[data-at-top]": {
-                            maskImage:
-                                "linear-gradient(180deg,#000 calc(100% - var(--scroll-shadow-size)),transparent)",
-                        },
-                        "&[data-at-bottom]": {
-                            maskImage:
-                                "linear-gradient(0deg,#000 calc(100% - var(--scroll-shadow-size)),transparent)",
-                        },
-                    },
-                }}>
-                    <ScrollArea.Content pr="3">
-                        
-                        <Stack>
-                            {data.map((tour) => { return <TourListEntry tour={tour}></TourListEntry> })}
-                        </Stack>                        
-
-                    </ScrollArea.Content>
-                </ScrollArea.Viewport>
-                <ScrollArea.Scrollbar >
-                    <ScrollArea.Thumb />
-                </ScrollArea.Scrollbar>
-                <ScrollArea.Corner />
-            </ScrollArea.Root>
-            <Button onClick={()=> {navigation.navigate("/tour-management")}} >
-                Create Tour
-            </Button>
-
         </Stack>
- 
-        </Box>
 
-           );
+    );
 }

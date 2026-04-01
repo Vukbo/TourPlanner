@@ -1,8 +1,7 @@
-import React, { useRef, useState, type JSX } from "react";
-import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useRef, useState, type JSX } from "react";
+import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap } from "react-leaflet";
 import { useQuery } from "@tanstack/react-query";
-import type { LatLngBoundsExpression, LatLngExpression, PathOptions } from "leaflet";
+import { map, type LatLngBoundsExpression, type LatLngExpression, type PathOptions } from "leaflet";
 import { TourService } from "~/queries/rest";
 
 interface RoutePoint {
@@ -10,8 +9,14 @@ interface RoutePoint {
     position: LatLngExpression
 }
 
-interface Route {
+function MapOverride()
+{
+    const map = useMap();
+    map.locate().on("locationfound",(e)=> {
+            map.setView(e.latlng)
+        })
 
+    return null;
 }
 
 export default function Map() {
@@ -29,7 +34,8 @@ export default function Map() {
         }
     )
 
-    const lineOptions : PathOptions = {color: 'red'}
+
+    const lineOptions: PathOptions = { color: 'red' }
 
     // function RenderMarkers(points: RoutePoint[]) {
     //     let markers = points.map((point) => {
@@ -45,11 +51,11 @@ export default function Map() {
     //     return markers
     // }
 
-function RenderMarkers(points: LatLngExpression[]) {
+    function RenderMarkers(points: LatLngExpression[]) {
         let markers = points.map((point) => {
             return (
                 <Marker position={point}>
-                    
+
                 </Marker>
             )
         })
@@ -57,15 +63,13 @@ function RenderMarkers(points: LatLngExpression[]) {
         return markers
     }
 
-    function GetBounds(bbox:number[])
-    {
-        let bounds: LatLngBoundsExpression = [[bbox[0],bbox[1]],[bbox[2],bbox[3]]]
+    function GetBounds(bbox: number[]) {
+        let bounds: LatLngBoundsExpression = [[bbox[0], bbox[1]], [bbox[2], bbox[3]]]
         return bounds;
     }
 
-    function GetPath(points:any[])
-    {
-        return points.map((point) => point as LatLngExpression)   
+    function GetPath(points: any[]) {
+        return points.map((point) => point as LatLngExpression)
     }
 
 
@@ -74,19 +78,15 @@ function RenderMarkers(points: LatLngExpression[]) {
 
     if (error) return "An erro has occured: " + error.message
 
-    console.log(data);
-    // return data.features[0].geometry.coordinates;
 
     return (
-        <MapContainer  doubleClickZoom={false} attributionControl={false} zoomControl={false}  bounds={GetBounds(data.bbox)} style={{ borderRadius:"5px", width: "100%", height: "100%" }} scrollWheelZoom={false}>
+        <MapContainer center={[0,0]} zoom={16} doubleClickZoom={false} attributionControl={false} zoomControl={false}  style={{ filter:" grayscale(100%) contrast(110%) ", borderRadius:"5px", width: "100%", height: "100%" }} scrollWheelZoom={false}>
 
-            <TileLayer
+            <TileLayer 
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Polyline pathOptions={lineOptions} positions={GetPath(data.features[0].geometry.coordinates)}/>
-            {RenderMarkers([data.features[0].geometry.coordinates[0], data.features[0].geometry.coordinates[(data.features[0].geometry.coordinates as []).length-1]])}
-            
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+            <MapOverride />
+
         </MapContainer>
     );
 }

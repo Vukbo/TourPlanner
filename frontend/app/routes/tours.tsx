@@ -2,30 +2,15 @@ import { Box, Button, Center, Flex, Group, Heading, Icon, IconButton, Menu, Scro
 import { useQuery } from "@tanstack/react-query";
 import type { LatLngExpression } from "leaflet";
 import { LuBike, LuEllipsisVertical, LuFootprints, LuMountain, LuShieldQuestion } from "react-icons/lu";
+import { TransportTypes, type Tour } from "~/models/tour";
 import { RouteService, TourService } from "~/queries/rest";
 
-enum TransportTypes {
-    Walking=0,
-    Hiking=1,
-    Biking=2
-}
 
-interface TourModel {
-    id: string,
-    author: string,
-    title : string,
-    description : string,
-    from : string,
-    to : string,
-    transportType: TransportTypes,
-    distance: number,
-    duration: number
-}
 
-export function TourListEntry({tour}:{tour:TourModel}) {
+export function TourListEntry({tour}:{tour:Tour}) {
     
     let icon = <LuShieldQuestion />
-    if (tour.transportType == TransportTypes.Walking) icon = <LuFootprints />
+    // if (tour.transportType == TransportTypes.Walking) icon = <LuFootprints />
     if (tour.transportType == TransportTypes.Hiking) icon = <LuMountain />
     if (tour.transportType == TransportTypes.Biking) icon = <LuBike /> 
 

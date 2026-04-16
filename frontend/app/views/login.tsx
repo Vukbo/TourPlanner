@@ -18,103 +18,110 @@ import type { JSX } from "@emotion/react/jsx-runtime";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { RouteService, TourService } from "~/queries/rest.js";
 import type { User } from "~/models/user.js";
+import type { ViewModel } from "./register.js";
+import { useNavigate } from "react-router";
+import { PasswordInput } from "~/components/ui/password-input.js";
 
-function InputField({
-  value = "",
-  label,
-  placeholder = "",
-  required = false,
-  error = "",
-  OnValueChanged,
-}: {
-  value: string;
-  label: string;
-  placeholder?: string;
-  required?: boolean;
-  error?: string;
-  OnValueChanged: (value: string) => void;
-}): JSX.Element {
-  // const [touched, SetTouched] = useState(false);
-  const [valid, SetValid] = useState(false);
 
-  function OnChange(
-    event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) {
-    OnValueChanged(event.target.value);
+
+export default function Login() {
+  const [vm, setVM] = useState<ViewModel>({ username: "", password: "" });
+  const [canSubmit, setCanSubmit] = useState(false);
+  let navigate = useNavigate();
+
+
+  const mutation = useMutation({
+    mutationFn: async (user: ViewModel) => {
+      try {
+        let response = await TourService.post("/auth/login", user);
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+    onSuccess: () => {
+        setTimeout(()=> navigate("/tours"),5000)
+    },
+  });
+
+  function updateModel(model: ViewModel) {
+    let canSubmit = false;
+    if (model.username !== "" && model.password !== "") canSubmit = true;
+
+    setCanSubmit(canSubmit);
+    setVM(model);
   }
 
   return (
-    <Field.Root required={required}>
-      <Field.Label>
-        {label}
-        <FieldRequiredIndicator />
-      </Field.Label>
-      <Input
-        placeholder={placeholder}
-        value={value}
-        onChange={OnChange}
-      />
-      {/* <Field.ErrorText>{GetErrorMessage()}</Field.ErrorText> */}
-    </Field.Root>
-  );
-}
-
-export default function Login({ loaderData }: Route.ComponentProps) {
-  const [user, setUser] = useState<User>({ username: "", password: "" })
-  const mutation = useMutation({
-    mutationKey: ['userData'],
-    mutationFn: (user: User) =>
-      TourService.post("/auth/login", user),
-    onSuccess(data, variables, onMutateResult, context) {
-      console.log("login was successfull!")
-      navigation.navigate("/tours")
-    },
-  })
-
-
-  return (
-    <AbsoluteCenter>
-      <Container minW="md" maxW="xl">
-        <Flex direction="column" gap="5">
-          <Flex justify="space-between">
-            <Heading>Login</Heading>
-            <Link href="register" variant="underline"> Register Account</Link>
-
-          </Flex>
-          {mutation.isError ? (<Alert.Root status="error">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>Login Failed</Alert.Title>
-              <Alert.Description>
-                Couldn't find any user account with provided E-Mail or Password.
-              </Alert.Description>
-            </Alert.Content>
-          </Alert.Root>) : (null) }
-          
-          <Flex direction="column" gap="2.5">
-            <InputField value={user.username}
-              OnValueChanged={(v) => {
-                setUser({ ...user, username: v })
-              }}
-              required={true}
-              label="E-Mail"
-              placeholder="your@mail.com"
-            ></InputField>
-            <InputField value={user.password}
-              OnValueChanged={(v) => {
-                setUser({ ...user, password: v })
-              }}
-              required={true}
-              label="Password"
-              placeholder="********"
-            ></InputField>
-          </Flex>
-          <Flex direction="column" gap="5">
-            <Separator></Separator>
-            <Button loading={mutation.isPending} onClick={()=> mutation.mutate(user)}>Login</Button>
-          </Flex>
-        </Flex>
-      </Container>
-    </AbsoluteCenter>
+        <AbsoluteCenter>
+          <Container minW="md" maxW="xl">
+            <Flex gap="6" direction="column">
+              <Flex gap="3" direction="column">
+                <Heading>Login</Heading>
+                <Separator />
+              </Flex>
+    
+              {mutation.isError ? (
+                <Alert.Root status="error">
+                  <Alert.Indicator />
+                  <Alert.Content>
+                    <Alert.Title>Login Failed!</Alert.Title>
+                    <Alert.Description>
+                      Username or Password was incorrect. Please try again.
+                    </Alert.Description>
+                  </Alert.Content>
+                </Alert.Root>
+              ) : null}
+                        {mutation.isSuccess ? (<Alert.Root status="success">
+                          <Alert.Indicator />
+                          <Alert.Content>
+                            <Alert.Title>Login Successfull!</Alert.Title>
+                            <Alert.Description>
+                              Navigating to Dashboard.
+                            </Alert.Description>
+                          </Alert.Content>
+                        </Alert.Root>) : (null) }
+              <Flex gap="3" direction="column">
+                <Field.Root required>
+                  <Field.Label>
+                    Username
+                    <FieldRequiredIndicator />
+                  </Field.Label>
+                  <Input
+                    placeholder="user@mail.com"
+                    onChange={(e) =>
+                      updateModel({ ...vm, username: e.target.value })
+                    }
+                  />
+                </Field.Root>
+                <Field.Root required>
+                  <Field.Label>
+                    Password
+                    <FieldRequiredIndicator />
+                  </Field.Label>
+                  <PasswordInput
+                    placeholder="********"
+                    onChange={(e) =>
+                      updateModel({ ...vm, password: e.target.value })
+                    }
+                  />
+                  <Field.ErrorText></Field.ErrorText>
+                </Field.Root>
+              </Flex>
+    
+              <Flex gap="3" direction="column">
+                <Button
+                  disabled={!canSubmit}
+                  loading={mutation.isPending}
+                  onClick={() => mutation.mutate(vm)}
+                >
+                  Login
+                </Button>
+    
+                <Link href="/register">Account Registration</Link>
+              </Flex>
+            </Flex>
+          </Container>
+        </AbsoluteCenter>
   );
 }

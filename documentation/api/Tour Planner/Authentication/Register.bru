@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{protocol}}://{{host}}:{{port}}/{{path}}/register
+  url: {{protocol}}://{{host}}:{{port}}/users
   body: json
   auth: inherit
 }
@@ -16,8 +16,8 @@ headers {
 
 body:json {
   {
-    "username" : "{{mock_user_mail}}",
-    "password" : "{{mock_user_password}}"
+    "username" : "vukbo@mail.com",
+    "password" : "AVeryWeakPasswordIndeed"
   }
 }
 

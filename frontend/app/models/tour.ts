@@ -1,3 +1,5 @@
+import type { TourLog } from "./logs";
+
 export enum TransportTypes {
     Hiking=0,
     Biking=1
@@ -12,5 +14,6 @@ export interface Tour {
     to : string,
     transportType: TransportTypes,
     distance?: number,
-    duration?: number
+    duration?: number,
+    logs? : TourLog[]
 }

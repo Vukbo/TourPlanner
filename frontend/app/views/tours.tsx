@@ -58,8 +58,8 @@ export function TourLE({ tour }: { tour: Tour }) {
             {tour.from} - {tour.to}
           </Text>
           <Text fontWeight="light" textStyle="xs">
-            {tour.distance!.toPrecision(3)} km | {tour.duration!.toPrecision(3)}{" "}
-            h
+            {/*{tour.distance!.toPrecision(3)} km | {tour.duration!.toPrecision(3)}{" "}*/}
+            {/*h*/}
           </Text>
         </Flex>
 
@@ -92,6 +92,7 @@ export default function Tours() {
 
   // if (query.error) return "Error occured: " + error.message
   if (isPending) return;
+  if (!data) return;
 
   return (
     <Stack direction="row" flexGrow={1} gap={5}>
@@ -119,9 +120,10 @@ export default function Tours() {
           >
             <ScrollArea.Content pr="3">
               <Stack>
-                {/* {data.map((tour) => {
+                
+                {data.map((tour) => {
                   return <TourLE tour={tour}></TourLE>;
-                })} */}
+                }) }
               </Stack>
             </ScrollArea.Content>
           </ScrollArea.Viewport>
@@ -138,11 +140,11 @@ export default function Tours() {
           Create Tour
         </Button>
       </Stack>
-      {/* <TourDetails distance={10}
+      { <TourDetails distance={10}
          
-      /> */}
-
-      {/* <Map></Map> */}
+      /> }
+      
+      { <Map></Map> }
     </Stack>
   );
 }

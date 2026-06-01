@@ -1,5 +1,5 @@
 {
-  "uuid": "82fbd5f1-3f8c-4af6-b7aa-fef7ae18cc4e",
+  "uuid": "fbc388e0-b8e0-4fab-ae23-6d74d0e1d3cf",
   "lastMigration": 33,
   "name": "Tour Planner API (copy)",
   "endpointPrefix": "",
@@ -9,14 +9,14 @@
   "folders": [],
   "routes": [
     {
-      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d",
+      "uuid": "9517c3e1-93b7-44d9-a248-1d664e7e7eab",
       "type": "http",
       "documentation": "Sends route mock data",
       "method": "get",
       "endpoint": "route",
       "responses": [
         {
-          "uuid": "7de13b94-c17f-40b1-bff0-6550c2d50550",
+          "uuid": "e9ebdd38-4f87-4930-9231-306d096340e9",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -40,14 +40,14 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67",
+      "uuid": "cd9b00f9-aeb3-4e4e-8c5a-2449d4b7fba6",
       "type": "crud",
       "documentation": "Tour managment",
       "method": "",
       "endpoint": "tours",
       "responses": [
         {
-          "uuid": "fd80a89a-2dd4-4f85-893a-b7cfb5281243",
+          "uuid": "6eab47fd-9db7-455d-8170-69a49fc0df36",
           "body": "{}",
           "latency": 25,
           "statusCode": 200,
@@ -71,14 +71,14 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af",
+      "uuid": "dfb2c11e-a155-405a-af84-c9f692a76bc2",
       "type": "crud",
       "documentation": "User managment",
       "method": "",
       "endpoint": "users",
       "responses": [
         {
-          "uuid": "0db11841-8f87-41c0-98a5-98c7964e094f",
+          "uuid": "2d29e3fc-3e9f-43dd-8dc7-daf30110a012",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -102,14 +102,14 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1",
+      "uuid": "de8128da-0ee1-449f-8c16-75628acfd85f",
       "type": "crud",
       "documentation": "",
       "method": "",
       "endpoint": "logs",
       "responses": [
         {
-          "uuid": "34944de2-d64c-4d68-925f-75a2f6f77bb1",
+          "uuid": "fcf5e96b-d373-48fa-98da-5ea889c5fb31",
           "body": "{}",
           "latency": 0,
           "statusCode": 200,
@@ -133,14 +133,14 @@
       "streamingInterval": 0
     },
     {
-      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a",
+      "uuid": "887995d6-5bdf-4226-ba3b-907f09eb5590",
       "type": "http",
       "documentation": "User login",
       "method": "post",
       "endpoint": "auth/login",
       "responses": [
         {
-          "uuid": "9c14edd2-2a55-4d37-85c7-0cb97f7be96f",
+          "uuid": "762e3e9b-90c5-4289-8d15-c23fa3e8e515",
           "body": "{\n  \"token\":\"{{faker 'internet.jwt' }}\",\n  \"type\":\"JWT\",\n  \"lifetime\":3600\n}",
           "latency": 0,
           "statusCode": 200,
@@ -174,7 +174,7 @@
           "callbacks": []
         },
         {
-          "uuid": "ea06a8a9-52c5-4feb-9d63-456ed0bb225d",
+          "uuid": "9e83aa34-bdd0-42ae-a1c2-41cb2c46d1e1",
           "body": "{\n  \"error\":\"Incorrect Username or Password!\",\n  \"info\":[\n    \"Username must be in e-mail format.\", \"Password needs to be at least 6 characters long.\"\n    ]\n}",
           "latency": 0,
           "statusCode": 400,
@@ -201,23 +201,23 @@
   "rootChildren": [
     {
       "type": "route",
-      "uuid": "70d4f05b-d4e5-41e0-9935-a9cf3ad96b4d"
+      "uuid": "9517c3e1-93b7-44d9-a248-1d664e7e7eab"
     },
     {
       "type": "route",
-      "uuid": "617622c4-7348-4d60-87db-77138ea0cd67"
+      "uuid": "cd9b00f9-aeb3-4e4e-8c5a-2449d4b7fba6"
     },
     {
       "type": "route",
-      "uuid": "d0bf8712-5f95-48fe-a009-3a09b3878ba1"
+      "uuid": "de8128da-0ee1-449f-8c16-75628acfd85f"
     },
     {
       "type": "route",
-      "uuid": "3169da5b-cbf4-4896-9778-04185bfb16af"
+      "uuid": "dfb2c11e-a155-405a-af84-c9f692a76bc2"
     },
     {
       "type": "route",
-      "uuid": "944a5423-add6-4aa1-b9fe-e2512006376a"
+      "uuid": "887995d6-5bdf-4226-ba3b-907f09eb5590"
     }
   ],
   "proxyMode": false,
@@ -265,28 +265,28 @@
   ],
   "data": [
     {
-      "uuid": "20322141-866f-4bf1-8371-8c815928cb6a",
+      "uuid": "a8ef199d-4111-4581-8e6c-673be9f25df0",
       "id": "5stp",
       "name": "Users",
       "documentation": "",
       "value": "[\n  {{#repeat 10}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"username\": \"{{faker 'internet.email'}}\",\n    \"password\": \"{{faker 'internet.password'}}\"\n  }\n  {{/repeat}}\n]"
     },
     {
-      "uuid": "343eb79b-7668-4488-a5d6-753666b16ff8",
+      "uuid": "ef8abdf0-f393-4a14-b825-c43ad851fa3a",
       "id": "p2l2",
       "name": "Tours",
       "documentation": "List of all available tours",
       "value": "[\n  {{#repeat 100}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw '5stp')) 'id' }}\",\n    \"title\":\"{{faker 'word.noun'}} {{faker 'word.noun'}}\",\n    \"description\": \"{{faker 'lorem.paragraph'}}\",\n    \"from\": \"{{faker 'location.streetAddress' false}}\",\n    \"to\": \"{{faker 'location.streetAddress' false}}\",\n    \"transportType\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=1 max=10 }},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}}\n  }\n  {{/repeat}}\n]"
     },
     {
-      "uuid": "732fece8-18e0-4c46-8ba6-4999f3601dd5",
+      "uuid": "2f543ec9-53dc-48f8-8024-c1821c4f889a",
       "id": "io4q",
       "name": "Tour Logs",
       "documentation": "",
       "value": "[\n    {{#repeat 200}}\n  {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"tour\":\"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"author\": \"{{ lookup (oneOf (dataRaw 'p2l2')) 'id' }}\",\n    \"date-of-creation\": \"{{faker 'date.past' years=2}}\",\n    \"comment\": \"{{faker 'lorem.paragraph'}}\",\n    \"difficulty\": {{faker 'number.int' min=0 max=2}},\n    \"distance\": {{faker 'number.float' min=0.5 max=10}},\n    \"duration\": {{faker 'number.float' min=0.5 max=4}},\n    \"rating\": {{faker 'number.int' min=1 max=5}}\n  }\n  {{/repeat}}\n]"
     },
     {
-      "uuid": "3c042b2c-c374-4644-8b42-a42daaa438b2",
+      "uuid": "fbd0929f-cd57-4094-96a2-846428b04675",
       "id": "y4qm",
       "name": "user-schema",
       "documentation": "JSON schema ",
